@@ -12,8 +12,6 @@ int (*match_function(const char *format))(va_list)
 		{"%", _print_percent},
 		{"d", _print_decimal},
 		{"i", _print_decimal},
-		{"b", _print_binary},
-		{"u", _print_unsigned},
 		{NULL, NULL}
 	};
 	int i;

@@ -23,11 +23,3 @@ int (*match_function(const char *format))(va_list)
 	}
 	return (NULL);
 }
-/**
- * 7: match_function takes a const char pointer and returns a pointer to a function. That returned function takes a va_list as argument and returns an int
- * 9-18: matching table
- * 19: index value
- * 21: go through the loop until it reaches NULL
- * 23: compare the first character of the input to the character pointed by *format
- * 24: return the pointer to the matching function if comparison is True
- * 26: return NULL if it fails

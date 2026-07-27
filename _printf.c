@@ -26,8 +26,14 @@ int _printf(const char *format, ...)
 			}
 			else
 			{
-				write(1, &format[i], 1);
-				i++;
+				if (format[i + 1] == '0')
+					i++;
+				else
+				{
+					write(1, &format[i], 1);
+					count++;
+					i++;
+				}
 			}
 		}
 		else

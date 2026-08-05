@@ -22,11 +22,9 @@ This project is Holberton School's first group assignment. I've had to complete 
 >
 > This project is not about "replicating" printf line by line, but about understanding how it works internally: how strings are parsed, how variadic arguments are handled, how output is formatted, and how memory is managed safely.
 
-The scope of this analysis covers the full codebase (`main.h`, `_printf.c`, `match_function.c`, `_print_char.c`, `_print_string.c`, `_print_percent.c`, `_print_decimal.c`), implementing the `c`, `s`, `%`, `d`, and `i` conversion specifiers via a function-pointer dispatch table. The purpose of this exercise is not to improve the code, but to evaluate how reliably an AI tool can review low-level, systems-level C — and to document where its judgment holds up and where it doesn't.
+The scope of this analysis covers the full codebase (`main.h`, `_printf.c`, `match_function.c`, `_print_char.c`, `_print_string.c`, `_print_percent.c`, `_print_decimal.c`), implementing the `c`, `s`, `%`, `d`, and `i` conversion specifiers via a function-pointer dispatch table.
 
-## 2. [Focus Area](#2-focus-area)
-
-**Selected focus area: Variadic Argument Handling (`va_list`)** — use of `va_start`, `va_arg`, `va_copy`, argument lifetime, ordering, and safety.
+## 2. [Focus Area - Variadic Argument Handling](#2-focus-area)
 
 This codebase makes a specific architectural choice worth scrutinizing under this lens: the `va_list` is initialized (`va_start`) and torn down (`va_end`) exclusively inside `_printf.c`, while every actual consumption of the variadic arguments (`va_arg`) happens in separate files (`_print_char.c`, `_print_string.c`, `_print_decimal.c`), reached indirectly through a function pointer returned by `match_function`. In other words, `_printf` *owns* the `va_list`'s lifecycle from creation to destruction, but delegates every *read* of that list to code it doesn't directly call by name.
 
@@ -50,8 +48,6 @@ You are not allowed to:
 ```
 
 ## 4. [Summary of AI Feedback](#4-summary-of-ai-feedback)
-
-The AI's review, structured under the five requested headings, can be synthesized as follows:
 
 - **Structure/readability**: flagged minor inconsistencies (mixed declaration/initialization style in `_print_decimal`, an inconsistent `return(-1)` vs `return (-1)` spacing, and two header comments that don't accurately describe their parameter or purpose).
 - **Logical correctness**: confirmed `d`/`i` correctly dispatch to the same handler, and that the main parsing loop advances the index correctly in all three branches. It flagged that `_printf`'s `-1` return value is overloaded to mean two different things (`format == NULL` and a trailing lone `%`), which isn't documented in the function's own contract.

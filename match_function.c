@@ -1,9 +1,11 @@
 #include "main.h"
+
 /**
  * match_function - selects the correct function to apply the right specifier
  * @format: operator passed as argument to the program
  * Return: pointer to the function that match to specifier given as parameter
  */
+
 int (*match_function(const char *format))(va_list)
 {
 	specifier_t spec[] = {
@@ -14,6 +16,7 @@ int (*match_function(const char *format))(va_list)
 		{"i", _print_decimal},
 		{NULL, NULL}
 	};
+
 	int i;
 
 	for (i = 0; spec[i].specifier != NULL; i++)
@@ -21,5 +24,6 @@ int (*match_function(const char *format))(va_list)
 		if (spec[i].specifier[0] == *format)
 			return (spec[i].f);
 	}
+
 	return (NULL);
 }

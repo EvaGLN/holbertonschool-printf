@@ -1,9 +1,11 @@
 #include "main.h"
+
 /**
  * _printf - Write a function that produces output according to a format.
  * @format: input format
  * Return: number of char printed without '\0'
  */
+
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -13,7 +15,9 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+
 	va_start(args, format);
+
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
@@ -43,6 +47,8 @@ int _printf(const char *format, ...)
 			i++;
 		}
 	}
+
 	va_end(args);
+
 	return (count);
 }

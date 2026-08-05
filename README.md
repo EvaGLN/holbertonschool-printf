@@ -5,7 +5,7 @@ This document reports on an AI-assisted code review of a custom `printf` impleme
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [Focus Area](#2-focus-area)
+2. [Focus Area - Variadic Argument Handling](#2-focus-area---variadic-argument-handling)
 3. [AI Prompt (Verbatim)](#3-ai-prompt-verbatim)
 4. [Summary of AI Feedback](#4-summary-of-ai-feedback)
 5. [Critical Evaluation](#5-critical-evaluation)
@@ -16,7 +16,7 @@ This document reports on an AI-assisted code review of a custom `printf` impleme
 
 ## 1. [Introduction](#1-introduction)
 
-This project is Holberton School's first group assignment. I've had to complete entirely on my own, due to unpredictable circumstances on my partner's side. The codebase under review is the `_printf` integration project, described by Holberton as follows:
+This project is Holberton School's first group assignment. This report reflects an individual analysis of a project originally scoped for two but completed solo. The codebase under review is the `_printf` integration project, described by Holberton as follows:
 
 > The printf integration project represents a turning point in your C programming journey. Up to this point, you have mostly worked with concepts in isolation; here, you are expected to bring them together to solve a concrete, real-world problem. Implementing your own version of printf requires reading and interpreting technical specifications, dealing with partial or implicit requirements, and making justified design decisions — exactly the kind of challenges faced in professional software development.
 >
@@ -24,11 +24,11 @@ This project is Holberton School's first group assignment. I've had to complete 
 
 The scope of this analysis covers the full codebase (`main.h`, `_printf.c`, `match_function.c`, `_print_char.c`, `_print_string.c`, `_print_percent.c`, `_print_decimal.c`), implementing the `c`, `s`, `%`, `d`, and `i` conversion specifiers via a function-pointer dispatch table.
 
-## 2. [Focus Area - Variadic Argument Handling](#2-focus-area)
+## 2. [Focus Area - Variadic Argument Handling](#2-focus-area---variadic-argument-handling)
 
 This codebase makes a specific architectural choice worth scrutinizing under this lens: the `va_list` is initialized (`va_start`) and torn down (`va_end`) exclusively inside `_printf.c`, while every actual consumption of the variadic arguments (`va_arg`) happens in separate files (`_print_char.c`, `_print_string.c`, `_print_decimal.c`), reached indirectly through a function pointer returned by `match_function`. In other words, `_printf` *owns* the `va_list`'s lifecycle from creation to destruction, but delegates every *read* of that list to code it doesn't directly call by name.
 
-This split is exactly the kind of ownership/lifetime question this focus area is meant to surface: who is responsible for the `va_list`'s validity at any given point, what guarantees (if any) the C standard gives about a `va_list` being mutated across a function-call boundary, and whether this project's implicit reliance on "it just works on this platform" is a safe assumption or a portability blind spot. This also happens to be the area I feel least confident reasoning about independently, and the one most directly connected to the kind of low-level reasoning relevant to systems security.
+This split is exactly the kind of ownership/lifetime question this focus area is meant to surface: who is responsible for the `va_list`'s validity at any given point, what guarantees (if any) the C standard gives about a `va_list` being mutated across a function-call boundary, and whether this project's implicit reliance on "it just works on this platform" is a safe assumption or a portability blind spot. This also happens to be the area where I most need to reinforce my kwowledge, and where deepening my understanding would have the most direct payoff for reasoning about systems-level security.
 
 ## 3. [AI Prompt (Verbatim)](#3-ai-prompt-verbatim)
 

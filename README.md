@@ -228,3 +228,285 @@ Handle the following conversion specifiers:
 
 ## Authors
 Ksyv - [GitHub Profile](https://github.com/ksyv)
+
+
+
+
+
+<div align="center"><img src="https://github.com/ksyv/holbertonschool-web_front_end/blob/main/baniere_holberton.png"></div>
+
+# AI-Assisted Code Reviewer (printf)
+
+## Table of Contents :
+
+  - [0. Codebase Confirmation and Global Understanding](#subparagraph0)
+  - [1. Focus Area Selection](#subparagraph1)
+  - [2. AI-Assisted Code Review](#subparagraph2)
+  - [3. Analysis and Critique of AI Feedback](#subparagraph3)
+  - [4. Reflective Technical Blog Post](#subparagraph4)
+  - [5. Mentor Evaluation (Individual Analysis, Shared Codebase)](#subparagraph5)
+## Introduction and Context
+
+In systems programming, **code review is not optional**. In C, subtle errors related to memory management, variadic arguments, pointer arithmetic, or undefined behavior can lead to crashes, vulnerabilities, or silent corruption.
+
+At the same time, AI-assisted tools are increasingly used to review code. While these tools can provide fast feedback, they often struggle with:
+
+* Low-level memory semantics
+* Ownership and lifetime reasoning
+* Undefined or implementation-defined behavior
+* Architectural constraints imposed by real projects
+
+In this project, students will use an AI tool as a **code reviewer** for a complete, non-trivial C codebase: an implementation of **`printf`**.
+
+The analysis is performed **individually**, even if the `printf` project was originally developed in a team. In team cases, both students may analyze the same codebase, but **must produce independent analyses and reflections**.
+
+The goal is not to improve or refactor the code, but to **evaluate the AI’s ability to reason about complex, low-level C code**, and to reflect critically on its strengths and limitations.
+
+---
+
+## Learning Objectives
+
+By completing this project, the student will be able to:
+
+* Critically assess AI-generated feedback on a large C codebase
+* Identify incorrect assumptions, hallucinations, or unsafe recommendations
+* Reason about design decisions and constraints in a `printf` implementation
+* Analyze low-level concerns such as memory handling, variadic functions, and buffering
+* Distinguish superficial stylistic feedback from meaningful technical insights
+* Communicate a structured, technically sound critique in written form
+* Develop judgment about when AI-assisted code review is appropriate—and when it is not
+
+---
+
+## Resources
+
+Students may consult, when needed:
+
+* The official `printf` project specification (provided)
+* `man printf`, `man stdarg`
+* GNU C Library documentation
+* Valgrind documentation (conceptual reference)
+* ISO C standard (selected sections)
+* Documentation or usage guidelines of the chosen AI tool
+
+A **reference implementation of `printf`** will be provided for students who did not complete the integration project.
+
+---
+
+## Final Notes
+
+* This is an **individual project**, even if `printf` was developed in a team.
+* Students may analyze the same code but must submit **independent work**.
+* AI is treated as a **fallible reviewer**, not an authority.
+* Ambiguity and disagreement are part of the learning objective.
+
+---
+
+
+## Task
+### 0. Codebase Confirmation and Global Understanding <a name='subparagraph0'></a>
+
+### Objective
+
+Establish context and demonstrate understanding of the full `printf` codebase before involving AI.
+
+### Instructions
+
+* Confirm which codebase you will analyze:
+
+Your own `printf` implementation, or
+The provided base implementation (if you did not complete the project).
+* Review **all source and header files**.
+* Identify:
+
+Overall architecture
+Major components and their responsibilities
+Known constraints inherited from the original project
+
+> You must **not modify** the code.
+
+### Expected Outcome
+
+A clear mental model of how the `printf` implementation works as a whole.
+
+---
+
+### 1. Focus Area Selection <a name='subparagraph1'></a>
+
+## Focus Area Selection
+
+### Objective
+
+Define a precise analytical scope within a large codebase.
+
+**Description:** Although the analysis covers the **entire codebase**, the student must select **one primary focus area** from a predefined list.
+
+The chosen area will be analyzed **in depth**, while the rest of the code is discussed at a higher level.
+
+## Focus Areas (Choose only one):
+
+1. **Format String Parsing & Specifier Resolution**
+Parsing logic, tokenization, specifier detection, error handling for malformed formats.
+2. **Variadic Argument Handling (`va_list`)**
+Use of `va_start`, `va_arg`, `va_copy`, argument lifetime, ordering, and safety.
+3. **Memory Management & Allocation Strategy**
+Dynamic allocation, ownership, lifetime, error handling, and leak risks.
+4. **Output Buffering & Write Optimization**
+Buffer size decisions, flushing strategy, number of `write` calls, trade-offs.
+5. **Error Handling & Edge Cases**
+NULL handling, invalid specifiers, boundary conditions, undefined behavior.
+
+> The selected area must be explicitly stated and justified.
+
+### Instructions
+
+* Select **exactly one** focus area from the list.
+* If the printf project was developed individually, you may select any focus area.
+* If the printf project was developed in a team:
+Each team member must select a **different** focus area
+Focus areas **cannot overlap**
+
+The selected focus area:
+
+* Will guide your deep technical analysis
+* Will be evaluated individually, even when the codebase is shared
+* In your report, explicitly state:
+
+The selected focus area
+Why it is technically relevant in a `printf` implementation
+* You will analyze the **entire codebase**, but:
+
+The selected area must receive **deep, technical scrutiny**
+Other areas may be discussed at a higher level
+
+### Expected Outcome
+
+A clearly stated and justified analytical focus.
+
+---
+
+### 2. AI-Assisted Code Review <a name='subparagraph2'></a>
+
+### Objective
+
+Use an AI tool as a **code reviewer**, not as an author or refactoring tool.
+
+### Instructions
+
+* Submit the **entire `printf` codebase** to an AI tool.
+* Design a prompt that explicitly requests feedback on:
+
+Code structure and readability
+Logical correctness
+Memory safety and low-level concerns
+Edge cases and undefined behavior
+Efficiency and architectural decisions
+* Do **not** ask the AI to:
+
+Rewrite the code
+Optimize the code
+Fix issues automatically
+
+> You must preserve the **exact prompt** used as part of your documentation.
+
+### Expected Outcome
+
+A complete AI-generated code review response.
+
+---
+
+### 3. Analysis and Critique of AI Feedback <a name='subparagraph3'></a>
+
+### Objective
+
+Evaluate the AI’s feedback critically and technically.
+
+### Instructions
+
+* Analyze the AI’s feedback across the **entire codebase**.
+* Perform a **deep critique** of the feedback related to your selected focus area.
+* Classify AI feedback into categories such as:
+
+Correct and useful
+Superficial or generic
+Incorrect or misleading
+Unsafe or technically invalid
+* You are expected to:
+
+Explicitly **disagree** with the AI when justified
+Explain *why* feedback is wrong or incomplete
+State uncertainty when you cannot fully verify a claim
+
+Blind agreement will be considered a failure of analysis.
+
+### Expected Outcome
+
+A reasoned, technically grounded evaluation of the AI’s review.
+
+---
+
+### 4. Reflective Technical Blog Post <a name='subparagraph4'></a>
+
+### Objective
+
+Communicate your analysis clearly and professionally.
+
+### Instructions
+
+Write a blog post with the following mandatory sections:
+
+1. **Introduction**
+Context of the `printf` project and scope of analysis.
+2. **Focus Area**
+Selected focus area and justification.
+3. **AI Prompt**
+Exact prompt used (verbatim).
+4. **Summary of AI Feedback**
+Synthesized overview (not raw output).
+5. **Critical Evaluation**
+Detailed critique, with emphasis on the selected focus area.
+6. **Reflection on AI as a Reviewer**
+Strengths, limitations, risks in low-level C code.
+7. **Conclusion**
+When (and if) AI should be trusted for reviewing systems code.
+
+Tone must be analytical and technical.
+
+### Expected Outcome
+
+A structured, coherent, and critical technical blog post.
+
+Publish your post on Linkedin, Medium or any other professional social network. This will help you start building your personal brand. Share the URL in the box below.
+
+---
+
+### 5. Mentor Evaluation (Individual Analysis, Shared Codebase) <a name='subparagraph5'></a>
+
+### Objective
+
+Evaluate the student’s analytical judgment **in context**, considering both:
+
+* The individual AI-assisted analysis, and
+* The quality of the underlying `printf` project.
+
+### Evaluation Rules
+
+* This task is evaluated by a **mentor or tutor**, not by peers.
+* If `printf` was developed in a team:
+
+Both students are evaluated **together regarding the project**
+Each student must have selected a **different focus area**
+Each student must submit an **independent report**
+* The mentor will:
+
+Review both reports
+Evaluate each focus area independently
+Perform a **global evaluation of the `printf` project**
+
+The final evaluation combines **individual analytical quality** with **shared project quality**.
+
+---
+
+
+## Authors
+Ksyv - [GitHub Profile](https://github.com/ksyv)
